@@ -1,0 +1,18 @@
+
+
+services:
+  dvwa-serivce:
+    image: vulnerables/web-dvwa
+    container_name: vulnerable-container
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+
+  hacker-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.Dockerfile.machine
+    container_name: attacker-container
+   
