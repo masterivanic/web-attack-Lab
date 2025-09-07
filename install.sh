@@ -6,8 +6,8 @@ source .env
 architecture=""
 mysqlImage=""
 
-docker buildx build -t local/kali-machine -f Dockerfile.machine .
-docker run --rm -it -p 80:80 vulnerables/web-dvwa --name vulnerable-container
+#docker buildx build -t local/kali-machine -f Dockerfile.machine .
+#docker run --rm -it -p 80:80 vulnerables/web-dvwa --name vulnerable-container
 
 function getArchitecture(){
     case $(uname -m) in
@@ -37,3 +37,5 @@ elif [[ ${architecture} == "x86_64" ]]; then
 else
     echo "Unsupported platform"
 fi
+
+startMysqlDb

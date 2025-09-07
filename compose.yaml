@@ -15,6 +15,8 @@ services:
       - DB_DATABASE=${DB_DATABASE}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - "$(pwd)/php.ini:/etc/php/7.0/apache2/php.ini"
     depends_on:
       - db
     env_file:
