@@ -1,5 +1,4 @@
 
-
 services:
   dvwa-serivce:
     image: vulnerables/web-dvwa
@@ -9,10 +8,33 @@ services:
       - "8080:8080"
     expose:
       - "8080"
+    environment:
+      - DB_SERVER=db
+      - DEFAULT_SECURITY_LEVEL=${DEFAULT_SECURITY_LEVEL}
+      - DB_SERVER=${DB_SERVER}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: mysql:8.0.42-bookworm # only work for amd64 arch
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER=${MYSQL_USER}
+      MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      MYSQL_DATABASE=${MYSQL_DATABASE}
+    env_file:
+      - .env
 
   hacker-service:
     build:
       context: .
-      dockerfile: Dockerfile.Dockerfile.machine
+      dockerfile: Dockerfile.machine
     container_name: attacker-container
+
    
