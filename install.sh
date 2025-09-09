@@ -7,7 +7,7 @@ architecture=""
 mysqlImage=""
 
 # docker buildx build -t local/kali-machine -f Dockerfile.machine .
-#docker run --rm -it -p 80:80 vulnerables/web-dvwa --name vulnerable-container
+#docker run --rm -it -p 80:80 vulnerables/web-dvwa --name vulnerable-container 2e14be3814d1
 # docker run --tty --interactive vulnerable-container
 
 docker run --rm -it --link unruffled_noether local/kali-machine nikto -h http://unruffled_noether
