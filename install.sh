@@ -6,8 +6,13 @@ source .env
 architecture=""
 mysqlImage=""
 
-#docker buildx build -t local/kali-machine -f Dockerfile.machine .
+# docker buildx build -t local/kali-machine -f Dockerfile.machine .
 #docker run --rm -it -p 80:80 vulnerables/web-dvwa --name vulnerable-container
+# docker run --tty --interactive vulnerable-container
+
+docker run --rm -it --link unruffled_noether local/kali-machine nikto -h http://unruffled_noether
+
+docker run --rm -it --link container_dwa image_kali command # comand kali
 
 function getArchitecture(){
     case $(uname -m) in
@@ -26,6 +31,10 @@ function startMysqlDb() {
       -e MYSQL_PASSWORD=${MYSQL_USER} \
       -e MYSQL_DATABASE=${MYSQL_DATABASE} \
       -d ${mysqlImage}
+}
+
+function NmapAttack() {
+    nmap -v -A -sV 127.0.0.1
 }
 
 getArchitecture
