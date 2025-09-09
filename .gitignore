@@ -1,4 +1,5 @@
 .env
 *.Identifier
 login.txt
-captures/*txt/rockyou.txt
+captures/*
+txt/rockyou.txt
