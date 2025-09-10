@@ -10,9 +10,17 @@ mysqlImage=""
 #docker run --rm -it -p 80:80 vulnerables/web-dvwa --name vulnerable-container 2e14be3814d1
 # docker run --tty --interactive vulnerable-container
 
-docker run --rm -it --link unruffled_noether local/kali-machine nikto -h http://unruffled_noether
+function bruteForceAttack(){
+    # $1 = username
+    # $2 = machine IP Adress
+    hydra -l $1 -P /common/rockyou.txt $2 http-post-form "/vulnerabilities/brute/:username=^USER^&password=^PASS^ \
+        :Username and/or password incorrect."
+}
 
-docker run --rm -it --link container_dwa image_kali command # comand kali
+function goBusterAttack(){
+    # $1 = IP Adress
+    gobuster dir -u "$1"  -w /common/directory-list-2.3-medium.txt
+}
 
 function getArchitecture(){
     case $(uname -m) in

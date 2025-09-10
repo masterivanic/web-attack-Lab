@@ -17,25 +17,6 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
     volumes:
       - "$(pwd)/php.ini:/etc/php/7.0/apache2/php.ini"
-    depends_on:
-      - db
-    env_file:
-      - .env
-
-  db:
-    image: mysql:8.0.42-bookworm # only work for amd64 arch
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER=${MYSQL_USER}
-      MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      MYSQL_DATABASE=${MYSQL_DATABASE}
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
     env_file:
       - .env
 
@@ -50,5 +31,10 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+    volumes:
+      - "$(pwd)/txt/common.txt:/common/common.txt"
+      - "$(pwd)/txt/rockyou.txt:/common/rockyou.txt"
+      - "$(pwd)/txt/directory-list-2.3-medium.txt:/common/directory-list-2.3-medium.txt"
+
 
    
