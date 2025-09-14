@@ -12,11 +12,28 @@ services:
       - DB_SERVER=db
       - DEFAULT_SECURITY_LEVEL=${DEFAULT_SECURITY_LEVEL}
       - DB_SERVER=${DB_SERVER}
-      - DB_DATABASE=${DB_DATABASE}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${MYSQL_DATABASE}
+      - DB_USER=${MYSQL_USER}
+      - DB_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - "$(pwd)/php.ini:/etc/php/7.0/apache2/php.ini"
+    env_file:
+      - .env
+
+  db:
+    image: mysql:8.0.42-bookworm # only work for amd64 arch
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      MYSQL_USER=${MYSQL_USER}
+      MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      MYSQL_DATABASE=${MYSQL_DATABASE}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     env_file:
       - .env
 
