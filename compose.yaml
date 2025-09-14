@@ -13,6 +13,7 @@
         - MYSQL_PASSWORD=${MYSQL_DATABASE}
       volumes:
         - "./php.ini:/etc/php/7.0/apache2/php.ini"
+        - "./cors-attack/vulnerable.php:/var/www/html/vulnerable.php"
       env_file:
         - .env
       depends_on:
